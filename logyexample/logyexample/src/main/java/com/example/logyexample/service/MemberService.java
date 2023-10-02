@@ -18,14 +18,13 @@ public class MemberService {
 
     // 회원가입
     public Long join(Member member) {
-        // 같은 userId가 있는 중복 회원X
         validateDuplicateMember(member);
-        memberRepository.save(member);
-        return member.getId();
+        Member savedMember = memberRepository.save(member);
+        return savedMember.getId();
     }
 
     private void validateDuplicateMember(Member member) {
-        memberRepository.findByUserId(member.getUserId())
+        memberRepository.findByUsername(member.getUsername())
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 회원입니다.");
                 });

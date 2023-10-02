@@ -20,12 +20,7 @@ public class Member {
     @Column(nullable = false)
     private String username;
 
-    @Column(name = "user_id", nullable = false, unique = true)  // 컬럼 이름이 "user_id"로 지정되어 있으므로 @Column 어노테이션을 사용하여 지정합니다.
-    private String userId;
-
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, unique = true)
-    private String email;
 }

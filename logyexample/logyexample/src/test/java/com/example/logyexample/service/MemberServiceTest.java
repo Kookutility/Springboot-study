@@ -33,8 +33,9 @@ public class MemberServiceTest {
     public void 회원가입() {
         // given
         Member member = new Member();
-        member.setUserId("testUser");
-        when(memberRepository.findByUserId(any())).thenReturn(Optional.empty());
+        member.setUsername("testUser");
+        member.setId(1L);  // 임의의 ID 값 설정
+        when(memberRepository.findByUsername(any())).thenReturn(Optional.empty());
         when(memberRepository.save(any())).thenReturn(member);
 
         // when
@@ -49,12 +50,12 @@ public class MemberServiceTest {
     public void 중복_회원_예외() {
         // given
         Member member1 = new Member();
-        member1.setUserId("testUser");
+        member1.setUsername("testUser");
 
         Member member2 = new Member();
-        member2.setUserId("testUser");
+        member2.setUsername("testUser");
 
-        when(memberRepository.findByUserId("testUser")).thenReturn(Optional.of(member1));
+        when(memberRepository.findByUsername("testUser")).thenReturn(Optional.of(member1));
 
         // when & then
         assertThatThrownBy(() -> memberService.join(member2))
